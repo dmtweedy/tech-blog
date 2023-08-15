@@ -1,18 +1,23 @@
 const Sequelize = require('sequelize');
-const sequelize = require('../config/connection'); // Path to your connection.js
+const sequelize = require('../config/connections');
+const User = require('./User');
+const Post = require('./Post');
+const Comment = require('./Comment');
 
 const models = {
-  User: sequelize.import('./User'),
-  Post: sequelize.import('./Post'),
-  Comment: sequelize.import('./Comment'),
-  // Define your other models here
+  User,
+  Post,
+  Comment,
 };
 
 // Define associations between models if needed
+models.User.hasMany(models.Post, { foreignKey: 'user_id' });
+models.Post.belongsTo(models.User, { foreignKey: 'user_id' });
+
 models.Post.hasMany(models.Comment, { foreignKey: 'post_id' });
 models.Comment.belongsTo(models.Post, { foreignKey: 'post_id' });
 
-models.Post.belongsTo(models.User, { foreignKey: 'user_id' });
-models.User.hasMany(models.Post, { foreignKey: 'user_id' });
-
-module.exports = models;
+module.exports = {
+  sequelize,
+  models
+};
