@@ -1,12 +1,13 @@
 const express = require('express');
 const router = express.Router();
-const db = require('../models');
+const { Post } = require('../models');
+const withAuth = require('../public/auth');
 
-router.get('/dash', async (req, res) => {
+router.get('/dash', withAuth, async (req, res) => {
   try {
     // Fetch and render posts
     const userId = req.session.userId; // Retrieve user ID
-    const posts = await db.Post.findAll({ where: { user_id: userId } });
+    const posts = await Post.findAll({ where: { user_id: userId } });
     res.render('dash', { posts });
   } catch (err) {
     console.error(err);
@@ -19,7 +20,7 @@ router.post('/dash/create', async (req, res) => {
   try {
     const userId = req.session.userId;
     const { title, content } = req.body;
-    await db.Post.create({
+    await Post.create({
       title,
       content,
       user_id: userId
@@ -32,12 +33,12 @@ router.post('/dash/create', async (req, res) => {
 });
 
 
-router.get('/dash/edit/:id', async (req, res) => {
+router.get('/dash/edit/:id', withAuth, async (req, res) => {
   try {
     const postId = req.params.id;
 
     // Fetch the post to edit
-    const post = await db.Post.findByPk(postId);
+    const post = await Post.findByPk(postId);
 
     res.render('edit-post', { post }); // Render a form to edit a post
   } catch (err) {
@@ -51,7 +52,7 @@ router.post('/dash/edit/:id', async (req, res) => {
     const postId = req.params.id;
 
     // Update the post
-    await db.Post.update(
+    await Post.update(
       {
         title: req.body.title,
         content: req.body.content
@@ -68,12 +69,12 @@ router.post('/dash/edit/:id', async (req, res) => {
   }
 });
 
-router.get('/dash/delete/:id', async (req, res) => {
+router.get('/dash/delete/:id', withAuth, async (req, res) => {
   try {
     const postId = req.params.id;
 
     // Delete the post
-    await db.Post.destroy({
+    await Post.destroy({
       where: { id: postId }
     });
 

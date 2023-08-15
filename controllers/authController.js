@@ -1,7 +1,7 @@
 const express = require('express');
 const bcrypt = require('bcrypt');
 const router = express.Router();
-const db = require('../models');
+const { User } = require('../models');
 
 // Display login form
 router.get('/login', (req, res) => {
@@ -14,12 +14,12 @@ router.post('/login', async (req, res) => {
     const { username, password } = req.body;
 
     // Find the user by username
-    const user = await db.User.findOne({ where: { username } });
+    const user = await User.findOne({ where: { username } });
 
     // Check if user exists and compare passwords using bcrypt
     if (user && bcrypt.compareSync(password, user.password)) {
       req.session.userId = user.id; // Store user's ID in session
-      res.redirect('/dashboard');
+      res.redirect('/dash');
     } else {
       res.redirect('/login'); // Redirect back to login if authentication fails
     }
@@ -43,12 +43,12 @@ router.post('/signup', async (req, res) => {
     const hashedPassword = bcrypt.hashSync(password, 10);
 
     // Create a new user with hashed password
-    await db.User.create({
+    await User.create({
       username,
       password: hashedPassword
     });
 
-    res.redirect('/dashboard'); // Redirect to dashboard after successful signup
+    res.redirect('/dash'); // Redirect to dashboard after successful signup
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: 'Internal server error' });

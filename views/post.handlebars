@@ -1,15 +1,17 @@
-<div class="post">
-  <h2>{{ title }}</h2>
-  <p>{{ content }}</p>
-  <p>Author: {{ author }}</p>
-  <a href="/post/{{ id }}/comment">Leave a Comment</a>
-</div>
-
-<div class="comments">
-  {{#each comments}}
-    <div class="comment">
-      <p>{{ text }}</p>
-      <p>Comment by: {{ author }}</p>
-    </div>
-  {{/each}}
-</div>
+<!DOCTYPE html>
+<html>
+<head>
+  <title>{{post.title}}</title>
+  <link rel="stylesheet" href="../public/styles/style.css">
+</head>
+<body>
+  <h1>{{post.title}}</h1>
+  <p>{{post.content}}</p>
+  <h2>Comments</h2>
+  <ul>
+    {{#each comments}}
+      <li>{{this.text}}</li>
+    {{/each}}
+  </ul>
+</body>
+</html>

@@ -1,8 +1,16 @@
 const express = require('express');
 const session = require('express-session');
+const exphbs = require('express-handlebars');
 const db = require('./models');
 const app = express();
 const PORT = process.env.PORT || 3000;
+
+app.engine('handlebars', exphbs({
+  defaultLayout: 'main',
+  layoutsDir: path.join(__dirname, 'views/layouts')
+}));
+
+app.set('view engine', 'handlebars');
 
 // Middleware
 app.use(express.urlencoded({ extended: true }));
