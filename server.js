@@ -2,15 +2,13 @@ const express = require('express');
 const session = require('express-session');
 const exphbs = require('express-handlebars');
 const db = require('./models');
+const path = require('path');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-app.engine('handlebars', exphbs({
-  defaultLayout: 'main',
-  layoutsDir: path.join(__dirname, 'views/layouts')
-}));
-
+app.engine('handlebars', exphbs({ defaultLayout: 'main' }));
 app.set('view engine', 'handlebars');
+app.set('views', path.join(__dirname, 'views'));
 
 // Middleware
 app.use(express.urlencoded({ extended: true }));
