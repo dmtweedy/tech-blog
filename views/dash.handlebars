@@ -1,22 +1,67 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Dashboard</title>
-  <link rel="stylesheet" href="../public/styles/style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tech Blog</title>
+  <link rel="stylesheet" href="../../public/styles/style.css">
 </head>
 <body>
-  <h1>Dashboard</h1>
-  <h2>Create a New Post</h2>
-  <form action="/dashboard" method="POST">
-    <input type="text" name="title" placeholder="Title" required>
-    <textarea name="content" placeholder="Content" required></textarea>
-    <button type="submit">Create Post</button>
-  </form>
-  <h2>Your Posts</h2>
-  <ul>
-    {{#each posts}}
-      <li><a href="/post/{{id}}">{{title}}</a></li>
-    {{/each}}
-  </ul>
+  <header>
+    <h1>Tech Blog</h1>
+    <nav>
+      <ul>
+        <li><a href="/home">Home</a></li>
+        <li><a href="/dash">Dashboard</a></li>
+        
+        {{#if user}}
+          <li><a id="logout-button" href="#">Logout</a></li>
+        {{else}}
+          <li><a href="/login">Login</a></li>
+        {{/if}}
+        
+      </ul>
+    </nav>
+  </header>
+  
+  <main>
+    <section class="dash">
+      <h2>Welcome to Your Dashboard, {{user.username}}!</h2>
+      {{#each userPosts}}
+        <article class="post">
+          <h3>{{this.title}}</h3>
+          <p>{{this.content}}</p>
+        </article>
+      {{/each}}
+    <section class="new-post">
+      <h3>Add a New Post</h3>
+      <form action="/add-post" method="POST">
+        <input type="text" name="title" placeholder="Title" required>
+        <textarea name="content" placeholder="Content" required></textarea>
+        <button type="submit">Submit</button>
+      </form>
+    </section>
+  </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2023 Tech Blog</p>
+  </footer>
+
+  <script>
+  const logoutButton = document.getElementById('logout-button');
+
+  if (logoutButton) {
+    logoutButton.addEventListener('click', function (event) {
+      event.preventDefault();
+      
+      const shouldLogout = confirm('Are you sure you want to log out?');
+      if (shouldLogout) {
+        window.location.href = '/logout';
+      }
+    });
+  }
+</script>
+
 </body>
 </html>

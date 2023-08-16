@@ -1,12 +1,18 @@
 const express = require('express');
 const router = express.Router();
 const { Post } = require('../models');
-const withAuth = require('../public/auth');
 
-router.get('/dash', withAuth, async (req, res) => {
+// Middleware function to check if the user is authenticated
+function isAuthenticated(req, res, next) {
+  if (req.isAuthenticated()) {
+    return next();
+  }
+  res.redirect('/login'); // Redirect to login if not authenticated
+}
+
+router.get('/dash', isAuthenticated, async (req, res) => {
   try {
-    // Fetch and render posts
-    const userId = req.session.userId; // Retrieve user ID
+    const userId = req.session.userId;
     const posts = await Post.findAll({ where: { user_id: userId } });
     res.render('dash', { posts });
   } catch (err) {
@@ -15,8 +21,7 @@ router.get('/dash', withAuth, async (req, res) => {
   }
 });
 
-router.post('/dash/create', async (req, res) => {
-  // Handle form submission to create a new post
+router.post('/dash/create', isAuthenticated, async (req, res) => {
   try {
     const userId = req.session.userId;
     const { title, content } = req.body;
@@ -32,26 +37,20 @@ router.post('/dash/create', async (req, res) => {
   }
 });
 
-
-router.get('/dash/edit/:id', withAuth, async (req, res) => {
+router.get('/dash/edit/:id', isAuthenticated, async (req, res) => {
   try {
     const postId = req.params.id;
-
-    // Fetch the post to edit
     const post = await Post.findByPk(postId);
-
-    res.render('edit-post', { post }); // Render a form to edit a post
+    res.render('edit-post', { post });
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: 'Internal server error' });
   }
 });
 
-router.post('/dash/edit/:id', async (req, res) => {
+router.post('/dash/edit/:id', isAuthenticated, async (req, res) => {
   try {
     const postId = req.params.id;
-
-    // Update the post
     await Post.update(
       {
         title: req.body.title,
@@ -61,24 +60,20 @@ router.post('/dash/edit/:id', async (req, res) => {
         where: { id: postId }
       }
     );
-
-    res.redirect('/dash'); // Redirect to dashboard after editing a post
+    res.redirect('/dash');
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: 'Internal server error' });
   }
 });
 
-router.get('/dash/delete/:id', withAuth, async (req, res) => {
+router.get('/dash/delete/:id', isAuthenticated, async (req, res) => {
   try {
     const postId = req.params.id;
-
-    // Delete the post
     await Post.destroy({
       where: { id: postId }
     });
-
-    res.redirect('/dash'); // Redirect to dashboard after deleting a post
+    res.redirect('/dash');
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: 'Internal server error' });

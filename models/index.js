@@ -1,4 +1,3 @@
-const Sequelize = require('sequelize');
 const sequelize = require('../config/connections');
 const User = require('./User');
 const Post = require('./Post');
@@ -18,6 +17,8 @@ models.Post.hasMany(models.Comment, { foreignKey: 'post_id' });
 models.Comment.belongsTo(models.Post, { foreignKey: 'post_id' });
 
 module.exports = {
-  sequelize,
-  models
+  User,
+  Post,
+  Comment,
+  sequelize
 };

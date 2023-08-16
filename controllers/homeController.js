@@ -1,10 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const { Post, Comment } = require('../models');
-const withAuth = require('../public/auth');
 
 // Display the homepage
-router.get('/', withAuth, async (req, res) => {
+router.get('/home', async (req, res) => {
   try {
     // Fetch and render existing blog posts
     const posts = await Post.findAll();

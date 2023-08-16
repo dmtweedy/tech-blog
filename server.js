@@ -6,9 +6,15 @@ const path = require('path');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-app.engine('handlebars', exphbs({ defaultLayout: 'main' }));
-app.set('view engine', 'handlebars');
 app.set('views', path.join(__dirname, 'views'));
+app.engine(
+  'handlebars',
+  exphbs({
+    defaultLayout: 'main',
+    layoutsDir: path.join(__dirname, 'views/layouts'),
+  })
+);
+app.set('view engine', 'handlebars');
 
 // Middleware
 app.use(express.urlencoded({ extended: true }));
@@ -27,7 +33,7 @@ app.use(homeRoutes);
 
 db.sequelize.sync().then(() => {
   app.listen(PORT, () => {
-    console.log(`Server listening on the homepage! http://localhost:${PORT}/`);
+    console.log(`Server listening on homepage! http://localhost:${PORT}/home`);
   });
 })
 .catch((err) => {

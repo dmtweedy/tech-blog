@@ -1,16 +1,60 @@
+
+
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Login - Tech Blog</title>
-  <link rel="stylesheet" href="../public/styles/style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tech Blog</title>
+  <link rel="stylesheet" href="../../public/styles/style.css">
 </head>
 <body>
-  <h1>Login</h1>
-  <form action="/login" method="POST">
-    <input type="text" name="username" placeholder="Username" required>
-    <input type="password" name="password" placeholder="Password" required>
-    <button type="submit">Login</button>
-  </form>
-  <p>Don't have an account? <a href="/signup">Sign up</a></p>
+  <header>
+    <h1>Tech Blog</h1>
+    <nav>
+      <ul>
+        <li><a href="/home">Home</a></li>
+        <li><a href="/dash">Dashboard</a></li>
+        
+        {{#if user}}
+          <li><a id="logout-button" href="#">Logout</a></li>
+        {{else}}
+          <li><a href="/login">Login</a></li>
+        {{/if}}
+        
+      </ul>
+    </nav>
+  </header>
+  
+  <main>
+    <section class="login-form">
+      <h2>Login</h2>
+      <form action="/login" method="POST">
+        <input type="text" name="username" placeholder="Username" required>
+        <input type="password" name="password" placeholder="Password" required>
+        <button type="submit">Login</button>
+      </form>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2023 Tech Blog</p>
+  </footer>
+
+  <script>
+  const logoutButton = document.getElementById('logout-button');
+
+  if (logoutButton) {
+    logoutButton.addEventListener('click', function (event) {
+      event.preventDefault();
+      
+      const shouldLogout = confirm('Are you sure you want to log out?');
+      if (shouldLogout) {
+        window.location.href = '/logout';
+      }
+    });
+  }
+</script>
+
 </body>
 </html>

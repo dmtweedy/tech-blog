@@ -34,21 +34,47 @@ router.get('/signup', (req, res) => {
   res.render('signup'); // Render signup.handlebars
 });
 
-// Handle signup form submission
+// Handle user registration (sign up)
 router.post('/signup', async (req, res) => {
   try {
     const { username, password } = req.body;
 
-    // Hash the password using bcrypt
-    const hashedPassword = bcrypt.hashSync(password, 10);
+    // Hash the password before storing it in the database
+    const hashedPassword = await bcrypt.hash(password, 10);
 
-    // Create a new user with hashed password
-    await User.create({
+    // Create a new user in the database
+    const newUser = await User.create({
       username,
-      password: hashedPassword
+      password: hashedPassword,
     });
 
-    res.redirect('/dash'); // Redirect to dashboard after successful signup
+    // Redirect or send a success response
+    res.redirect('/login');
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+router.post('/comment/:postId', async (req, res) => {
+  try {
+    const { commentText } = req.body;
+    const postId = req.params.postId;
+    const userId = req.session.userId; // Assuming you're storing user ID in the session
+
+    if (!userId) {
+      return res.redirect('/login'); // Redirect to login page if not logged in
+    }
+
+    // Create a new comment
+    await Comment.create({
+      text: commentText,
+      post_id: postId,
+      user_id: userId,
+    });
+
+    // Redirect back to the single post page
+    res.redirect(`/post/${postId}`);
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: 'Internal server error' });
