@@ -5,6 +5,12 @@ const db = require('./models');
 const path = require('path');
 const app = express();
 const PORT = process.env.PORT || 3000;
+const hbs = exphbs.create({
+  runtimeOptions: {
+    allowProtoPropertiesByDefault: true,
+    allowProtoMethodsByDefault: true,
+  },
+});
 
 app.set('views', path.join(__dirname, 'views'));
 app.engine(
@@ -19,7 +25,7 @@ app.set('view engine', 'handlebars');
 // Middleware
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use(express.static('public'));
+app.use(express.static(path.join(__dirname, 'public/styles')));
 app.use(session({ secret: process.env.SESSION_SECRET, resave: true, saveUninitialized: true }));
 
 // Routes

@@ -23,7 +23,7 @@ router.get('/post/:id', async (req, res) => {
     const post = await Post.findOne({ where: { id: postId } });
     const comments = await Comment.findAll({ where: { post_id: postId } });
 
-    res.render('solopost', { post, comments }); // Render the 'individual-post' view and pass the 'post' and 'comments' data
+    res.render('post', { post, comments });
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: 'Internal server error' });

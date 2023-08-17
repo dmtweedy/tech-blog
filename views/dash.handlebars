@@ -1,23 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tech Blog</title>
-  <link rel="stylesheet" href="../../public/styles/style.css">
-</head>
 <body>
   <header>
     <h1>Tech Blog</h1>
     <nav>
       <ul>
         <li><a href="/home">Home</a></li>
-        <li><a href="/dash">Dashboard</a></li>
         
         {{#if user}}
-          <li><a id="logout-button" href="#">Logout</a></li>
+          <li><a href="/dash">Dashboard</a></li>
+          <li><a id="logout-button" href="#">Log Out</a></li>
         {{else}}
-          <li><a href="/login">Login</a></li>
+          <li><a href="/login">Log In</a></li>
+          <li><a href="/signup">Sign Up</a></li>
         {{/if}}
         
       </ul>
@@ -29,8 +22,8 @@
       <h2>Welcome to Your Dashboard, {{user.username}}!</h2>
       {{#each userPosts}}
         <article class="post">
-          <h3>{{this.title}}</h3>
-          <p>{{this.content}}</p>
+          <h3>{{title}}</h3>
+          <p>{{content}}</p>
         </article>
       {{/each}}
     <section class="new-post">
@@ -64,4 +57,3 @@
 </script>
 
 </body>
-</html>

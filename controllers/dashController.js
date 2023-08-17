@@ -1,6 +1,5 @@
 const express = require('express');
 const router = express.Router();
-
 const { Post } = require('../models');
 
 // Middleware function to check if the user is authenticated
@@ -15,7 +14,7 @@ router.get('/dash', isAuthenticated, async (req, res) => {
   try {
     const userId = req.session.userId;
     const posts = await Post.findAll({ where: { user_id: userId } });
-    res.render('dash', { posts });
+    res.render('dash', { posts, user: req.user });
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: 'Internal server error' });
