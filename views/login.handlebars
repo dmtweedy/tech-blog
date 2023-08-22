@@ -1,13 +1,13 @@
-<body>
+
   <header>
-    <h1>Tech Blog</h1>
+    <h1><a href="/home">Tech Blog</a></h1>
     <nav>
       <ul>
         <li><a href="/home">Home</a></li>
         <li><a href="/dash">Dashboard</a></li>
         
         {{#if user}}
-          <li><a id="logout-button" href="#">Log Out</a></li>
+          <li><a href="/logout">Log Out</a></li>
         {{else}}
           <li><a href="/signup">Sign Up</a></li>
         {{/if}}
@@ -17,7 +17,7 @@
   </header>
   
   <main>
-    <section class="login-form">
+    <section class="login-form" id="login-form">
       <h2>Login</h2>
       <form action="/login" method="POST">
         <input type="text" name="username" placeholder="Username" required>
@@ -25,25 +25,13 @@
         <button type="submit">Login</button>
       </form>
     </section>
+    
+    <!-- Display logout button only if user is logged in -->
+    {{#if isLoggedIn}}
+      <a id="logout-button" href="#">Log Out</a>
+    {{/if}}
   </main>
 
   <footer>
     <p>&copy; 2023 Tech Blog</p>
   </footer>
-
-  <script>
-  const logoutButton = document.getElementById('logout-button');
-
-  if (logoutButton) {
-    logoutButton.addEventListener('click', function (event) {
-      event.preventDefault();
-      
-      const shouldLogout = confirm('Are you sure you want to log out?');
-      if (shouldLogout) {
-        window.location.href = '/logout';
-      }
-    });
-  }
-</script>
-
-</body>

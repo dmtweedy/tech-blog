@@ -1,13 +1,13 @@
-<body>
+
   <header>
-    <h1>Tech Blog</h1>
+    <h1><a href="/home">Tech Blog</a></h1>
     <nav>
       <ul>
         <li><a href="/home">Home</a></li>
         <li><a href="/dash">Dashboard</a></li>
         
         {{#if user}}
-          <li><a id="logout-button" href="#">Logout</a></li>
+          <li><a href="/logout">Log Out</a></li>
         {{else}}
           <li><a href="/login">Login</a></li>
         {{/if}}
@@ -30,20 +30,3 @@
   <footer>
     <p>&copy; 2023 Tech Blog</p>
   </footer>
-
-  <script>
-  const logoutButton = document.getElementById('logout-button');
-
-  if (logoutButton) {
-    logoutButton.addEventListener('click', function (event) {
-      event.preventDefault();
-      
-      const shouldLogout = confirm('Are you sure you want to log out?');
-      if (shouldLogout) {
-        window.location.href = '/logout';
-      }
-    });
-  }
-</script>
-
-</body>

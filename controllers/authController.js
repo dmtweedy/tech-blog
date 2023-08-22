@@ -5,6 +5,7 @@ const { User, Comment } = require('../models');
 
 // Display login form
 router.get('/login', (req, res) => {
+  console.log("recieved login route")
   res.render('login'); // Render login.handlebars
 });
 
@@ -19,9 +20,10 @@ router.post('/login', async (req, res) => {
     // Check if user exists and compare passwords using bcrypt
     if (user && bcrypt.compareSync(password, user.password)) {
       req.session.userId = user.id; // Store user's ID in session
+      console.log('User logged in. userId:', user.id); // Add this line
       res.redirect('/dash');
     } else {
-      res.redirect('/login'); // Redirect back to login if authentication fails
+      res.render('login', { errorMessage: 'Incorrect username or password' });
     }
   } catch (err) {
     console.error(err);

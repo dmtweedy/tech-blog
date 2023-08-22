@@ -4,6 +4,7 @@ const { Post, Comment } = require('../models');
 
 // Display the homepage
 router.get('/home', async (req, res) => {
+  console.log("in home route")
   try {
     // Fetch and render existing blog posts
     const posts = await Post.findAll();

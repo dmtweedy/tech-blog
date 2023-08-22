@@ -3,35 +3,41 @@ const session = require('express-session');
 const exphbs = require('express-handlebars');
 const db = require('./models');
 const path = require('path');
+const helpers = require('./utils/helpers');
 const app = express();
 const PORT = process.env.PORT || 3000;
 const hbs = exphbs.create({
   runtimeOptions: {
-    allowProtoPropertiesByDefault: true,
-    allowProtoMethodsByDefault: true,
+//    allowProtoPropertiesByDefault: true,
+//    allowProtoMethodsByDefault: true,
+    helpers
   },
 });
 
 app.set('views', path.join(__dirname, 'views'));
 app.engine(
-  'handlebars',
-  exphbs({
-    defaultLayout: 'main',
-    layoutsDir: path.join(__dirname, 'views/layouts'),
-  })
+  'handlebars', hbs.engine
+//  exphbs(
+//    {
+//    defaultLayout: 'main',
+//    layoutsDir: path.join(__dirname, 'views/layouts'),
+//  }
+//  )
 );
 app.set('view engine', 'handlebars');
 
 // Middleware
-app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use(express.static(path.join(__dirname, 'public/styles')));
+app.use(express.urlencoded({ extended: true }));
+
+app.use(express.static(path.join(__dirname, 'public')));
 app.use(session({ secret: process.env.SESSION_SECRET, resave: true, saveUninitialized: true }));
 
 // Routes
 const authRoutes = require('./controllers/authController');
 const dashRoutes = require('./controllers/dashController');
 const homeRoutes = require('./controllers/homeController');
+
 
 app.use(authRoutes);
 app.use(dashRoutes);

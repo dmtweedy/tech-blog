@@ -28,7 +28,7 @@ nav ul li:last-child {
   margin-right: 0;
 }
 
-nav ul li a {
+h1 a, nav ul li a {
   color: #fff;
   text-decoration: none;
 }
