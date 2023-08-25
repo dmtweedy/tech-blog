@@ -8,8 +8,8 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 const hbs = exphbs.create({
   runtimeOptions: {
-//    allowProtoPropertiesByDefault: true,
-//    allowProtoMethodsByDefault: true,
+    allowProtoPropertiesByDefault: false,
+    allowProtoMethodsByDefault: false,
     helpers
   },
 });
@@ -17,12 +17,6 @@ const hbs = exphbs.create({
 app.set('views', path.join(__dirname, 'views'));
 app.engine(
   'handlebars', hbs.engine
-//  exphbs(
-//    {
-//    defaultLayout: 'main',
-//    layoutsDir: path.join(__dirname, 'views/layouts'),
-//  }
-//  )
 );
 app.set('view engine', 'handlebars');
 
@@ -33,11 +27,21 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(session({ secret: process.env.SESSION_SECRET, resave: true, saveUninitialized: true }));
 
+// Middleware to load user information
+app.use(async (req, res, next) => {
+  if (req.session.userId) {
+    const user = await db.User.findByPk(req.session.userId);
+    if (user) {
+      req.user = user;
+    }
+  }
+  next();
+});
+
 // Routes
 const authRoutes = require('./controllers/authController');
 const dashRoutes = require('./controllers/dashController');
 const homeRoutes = require('./controllers/homeController');
-
 
 app.use(authRoutes);
 app.use(dashRoutes);

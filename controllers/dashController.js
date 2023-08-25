@@ -5,11 +5,19 @@ const { Post } = require('../models');
 router.get('/dash', async (req, res) => {
   try {
     const userId = req.session.userId;
+
+    if (!userId) {
+      // If the user is not logged in, you might want to redirect them to the login page
+      return res.redirect('/login');
+    }
+
+    // Fetch posts associated with the logged-in user's user_id
     const posts = await Post.findAll({ where: { user_id: userId } });
+
     res.render('dash', { posts, user: req.user });
   } catch (err) {
     console.error(err);
-    res.status(404).json({ error: 'error' });
+    res.status(500).json({ error: 'Internal server error' });
   }
 });
 

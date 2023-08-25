@@ -21,8 +21,8 @@
     <h2>Welcome to the Tech Blog</h2>
     {{#each posts}}
       <article class="post">
-        <h3>{{title}}</h3>
-        <p>{{content}}</p>
+        <h3>{{post.title}}</h3>
+        <p>{{post.content}}</p>
         <a href="/post/{{id}}">Read more</a>
       </article>
     {{/each}}

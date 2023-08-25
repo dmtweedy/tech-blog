@@ -6,22 +6,34 @@ const { sequelize, Post, User, Comment } = require('../models');
     await sequelize.sync({ force: true });
 
     // Create users
-    const users = await User.bulkCreate([
-      { username: 'dmtweedy', password: 'tweetybird' },
-      { username: 'johndoe', password: 'password2' }
-    ]);
+    const user1 = await User.create({ username: 'dmtweedy', password: 'tweetybird' });
+    const user2 = await User.create({ username: 'johndoe', password: 'password2' });
 
     // Create posts
-    const posts = await Post.bulkCreate([
-      { title: 'What is a CMS-Style Tech Blog?', content: 'A CMS-style blog site similar to a WordPress site, where developers can publish their blog posts and comment on other posts as well.', user_id: users[1].id },
-      { title: 'What is MVC?', content: 'MVC is an architectural pattern that separates an application into three main components: the model, the view, and the controller.', user_id: users[1].id },
-    ]);
+    const post1 = await Post.create({
+      title: 'What is a CMS-Style Tech Blog?',
+      content: 'A CMS-style blog site similar to a WordPress site, where developers can publish their blog posts and comment on other posts as well.',
+      user_id: user2.id
+    });
+
+    const post2 = await Post.create({
+      title: 'What is MVC?',
+      content: 'MVC is an architectural pattern that separates an application into three main components: the model, the view, and the controller.',
+      user_id: user2.id
+    });
 
     // Create comments
-    await Comment.bulkCreate([
-      { content: "Hey, that's what I'm making right now!", post_id: posts[0].id, user_id: users[0].id },
-      { content: "That's the structure I'm using to build the Tech Blog!", post_id: posts[1].id, user_id: users[0].id },
-    ]);
+    await Comment.create({
+      text: "Hey, that's what I'm making right now!",
+      post_id: post1.id,
+      user_id: user1.id
+    });
+
+    await Comment.create({
+      text: "That's the structure I'm using to build the Tech Blog!",
+      post_id: post2.id,
+      user_id: user1.id
+    });
 
     console.log('Seed data created successfully.');
   } catch (error) {
