@@ -20,16 +20,12 @@
     <section class="login-form" id="login-form">
       <h2>Login</h2>
       <form action="/login" method="POST">
-        <input type="text" name="username" placeholder="Username" required>
-        <input type="password" name="password" placeholder="Password" required>
+        <input type="text" name="username" placeholder="Username" required autocomplete="username">
+        <input type="password" name="password" placeholder="Password" required autocomplete="current-password">
         <button type="submit">Login</button>
       </form>
     </section>
     
-    <!-- Display logout button only if user is logged in -->
-    {{#if isLoggedIn}}
-      <a id="logout-button" href="#">Log Out</a>
-    {{/if}}
   </main>
 
   <footer>
