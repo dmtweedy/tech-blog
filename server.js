@@ -5,7 +5,7 @@ const db = require('./models');
 const path = require('path');
 const helpers = require('./utils/helpers');
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3002;
 const hbs = exphbs.create({
   runtimeOptions: {
     allowProtoPropertiesByDefault: false,
@@ -49,7 +49,7 @@ app.use(homeRoutes);
 
 db.sequelize.sync().then(() => {
   app.listen(PORT, () => {
-    console.log(`Server listening on ${PORT}`);
+    console.log(`Server listening on homepage! http://localhost:${PORT}/home`);
   });
 })
 .catch((err) => {
