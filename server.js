@@ -49,7 +49,7 @@ app.use(homeRoutes);
 
 db.sequelize.sync().then(() => {
   app.listen(PORT, () => {
-    console.log(`Server listening on homepage! http://localhost:${PORT}/home`);
+    console.log(`Server listening on ${PORT}`);
   });
 })
 .catch((err) => {

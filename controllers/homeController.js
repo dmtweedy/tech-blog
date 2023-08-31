@@ -6,11 +6,13 @@ const { Post, Comment } = require('../models');
 router.get('/home', async (req, res) => {
   console.log("in home route");
   try {
-    const userId = req.session.userId;
-
+    const userId = req.session.userId; // Retrieve user ID from session
+    
     // Fetch and render existing blog posts
     const posts = await Post.findAll();
-    res.render('home', { posts, userId }); // Pass both 'posts' and 'userId' data to the view
+
+    console.log('User logged in. userId:', userId); // Log the correct user ID
+    res.render('home', { posts, userId });
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: 'Internal server error' });
