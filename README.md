@@ -5,4 +5,4 @@ This assignment is a MVC assignment utilizing NodeJS, Sequelize, JawsDB, and Han
 
  ![Application screenshot](heroku screenshot)
 
- [Link to application](heroku link)
+ [Link to application](https://dmtweedy-tech-blog-3842a1c965fd.herokuapp.com/)
