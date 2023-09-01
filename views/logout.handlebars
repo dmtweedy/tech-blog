@@ -11,13 +11,13 @@
   </header>
   
   <main>
-  <section>
-    <h2>Are you sure you want to log out?</h2>
-    <form method="POST" action="/logout">
-      <button type="submit" name="logout" value="yes">Yes</button>
-    </form>
-    <a href="/dash"><button>No</button></a>
-  </section>
+  <section class="logout">
+        <h2>Are you sure you want to log out?</h2>
+        <form method="POST" action="/logout" class="button-container">
+            <button type="submit" name="logout" value="yes" class="btn">Yes</button>
+        </form>
+        <button type="button" class="link-button" onclick="location.href='/dash'">No</button>
+    </section>
   </main>
 
   <footer>
