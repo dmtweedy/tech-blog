@@ -40,6 +40,79 @@ nav ul li:last-child {
   margin-right: 0;
 }
 
+/* New post form styles */
+.new-post h3 {
+  font-size: 20px;
+  margin-bottom: 20px;
+}
+
+.new-post input[type="text"],
+.new-post textarea {
+  width: 98%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.new-post button[type="submit"] {
+  background-color: #333;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+/* container styles */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* Dash styles */
+.dash {
+  margin-bottom: 50px;
+}
+
+.dash h2 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+/* User post styles */
+.user-posts h3 {
+  font-size: 20px;
+  margin-top: 50px;
+  margin-bottom: 20px;
+}
+
+.user-posts ul {
+  list-style: none;
+}
+
+.user-posts .post {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.user-posts .post h3 {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.user-posts .post p {
+  font-size: 16px;
+  margin-bottom: 20px;
+}
+
+.user-posts .post a {
+  color: #007bff;
+  text-decoration: none;
+}
+
 h1 a, nav ul li a {
   color: #fff;
   text-decoration: none;
