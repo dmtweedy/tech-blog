@@ -23,6 +23,10 @@ router.get('/home', async (req, res) => {
   }
 });
 
+router.get('/loghome', (req, res) => {
+  res.render('loghome');
+});
+
 // Display a single blog post
 router.get('/post/:id', async (req, res) => {
   try {

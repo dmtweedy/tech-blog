@@ -10,9 +10,9 @@ router.get('/dash', async (req, res) => {
       return res.redirect('/login');
     }
 
-    const posts = await Post.findAll({ where: { user_id: userId } });
+    const userPosts = await Post.findAll({ where: { user_id: userId } });
 
-    res.render('dash', { userPosts: posts, user: req.user });
+    res.render('dash', { userPosts, user: req.user });
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: 'Internal server error' });

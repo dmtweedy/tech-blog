@@ -20,6 +20,7 @@ router.post('/login', async (req, res) => {
     // Check if user exists and compare passwords using bcrypt
     if (user && bcrypt.compareSync(password, user.password)) {
       req.session.userId = user.id; // Store user's ID in session
+      req.session.username = user.username;
       console.log('User logged in. userId:', user.id);
       res.redirect('/dash');
     } else {

@@ -2,15 +2,8 @@
     <h1><a href="/home">Tech Blog</a></h1>
     <nav>
       <ul>
-        <li><a href="/home">Home</a></li>
-
-        {{#if user}}
-          <li><a href="/logout" class="btn">Log Out</a></li>
-        {{else}}
-          <li><a href="/login" class="btn">Log In</a></li>
-          <li><a href="/signup" class="btn">Sign Up</a></li>
-        {{/if}}
-        
+        <li><a href="/loghome">Home</a></li>
+        <li><a href="/logout" class="btn">Log Out</a></li>
       </ul>
     </nav>
   </header>
@@ -34,9 +27,9 @@
       <ul>
         {{#each userPosts}}
           <article class="post">
-            <h3>{{post.title}}</h3>
-            <p>{{post.content}}</p>
-            <a href="/post/{{id}}">Read more</a>
+            <h3>{{this.title}}</h3>
+            <p>{{this.content}}</p>
+            <a href="/post/{{this.id}}">Read more</a>
           </article>
         {{/each}}
       </ul>
