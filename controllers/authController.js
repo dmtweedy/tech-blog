@@ -83,4 +83,23 @@ router.post('/comment/:postId', async (req, res) => {
   }
 });
 
+// Define logout route
+router.get('/logout', (req, res) => {
+  // Render logout page
+  res.render('logout');
+});
+
+// Handle logout form
+router.post('/logout', (req, res) => {
+  // Clear user's session
+  req.session.destroy((err) => {
+    if (err) {
+      console.error(err);
+    }
+    // Redirect user to home page
+    res.redirect('/home');
+  });
+});
+
+
 module.exports = router;

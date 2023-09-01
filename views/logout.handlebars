@@ -5,14 +5,7 @@
         
         <li><a href="/home">Home</a></li>
         <li><a href="/dash">Dashboard</a></li>
-        
-        {{#if user}}
 
-        {{else}}
-          <li><a href="/login">Log In</a></li>
-          <li><a href="/signup">Sign Up</a></li>
-        {{/if}}
-        
       </ul>
     </nav>
   </header>
@@ -20,6 +13,10 @@
   <main>
   <section>
     <h2>Are you sure you want to log out?</h2>
+    <form method="POST" action="/logout">
+      <button type="submit" name="logout" value="yes">Yes</button>
+    </form>
+    <a href="/dash"><button>No</button></a>
   </section>
   </main>
 

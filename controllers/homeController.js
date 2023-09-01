@@ -8,11 +8,15 @@ router.get('/home', async (req, res) => {
   try {
     const userId = req.session.userId; // Retrieve user ID from session
     
-    // Fetch and render existing blog posts
-    const posts = await Post.findAll();
+    if (userId) {
+      // If the user is logged in, render the "loghome" page
+      console.log('User logged in. userId:', userId); // Log the correct user ID
+      return res.render('loghome', { userId });
+    }
 
-    console.log('User logged in. userId:', userId); // Log the correct user ID
-    res.render('home', { posts, userId });
+    // If the user is not logged in, fetch and render the "home" page
+    const posts = await Post.findAll();
+    res.render('home', { posts, userId: null }); // Pass null for userId to indicate not logged in
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: 'Internal server error' });
