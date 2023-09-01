@@ -5,37 +5,44 @@
         <li><a href="/home">Home</a></li>
 
         {{#if user}}
-          <li><a href="/logout">Log Out</a></li>
+          <li><a href="/logout" class="btn">Log Out</a></li>
         {{else}}
-          <li><a href="/login">Log In</a></li>
-          <li><a href="/signup">Sign Up</a></li>
+          <li><a href="/login" class="btn">Log In</a></li>
+          <li><a href="/signup" class="btn">Sign Up</a></li>
         {{/if}}
         
       </ul>
     </nav>
   </header>
-  
-  <main>
+
+  <div class="container">
     <section class="dash">
       <h2>Welcome to Your Dashboard, {{user.username}}!</h2>
-      {{#each userPosts}}
-        <article class="post">
-          <h3>{{post.title}}</h3>
-          <p>{{post.content}}</p>
-        </article>
-      {{/each}}
+    </section>
+
     <section class="new-post">
       <h3>Add a New Post</h3>
       <form action="/add-post" method="POST">
         <input type="text" name="title" placeholder="Title" required>
         <textarea name="content" placeholder="Content" required></textarea>
-        <button type="submit">Submit</button>
+        <button type="submit">Post</button>
       </form>
     </section>
-  </section>
-  </main>
+    
+    <section class="user-posts">
+      <h3>Your Posts</h3>
+      <ul>
+        {{#each userPosts}}
+          <article class="post">
+            <h3>{{post.title}}</h3>
+            <p>{{post.content}}</p>
+            <a href="/post/{{id}}">Read more</a>
+          </article>
+        {{/each}}
+      </ul>
+    </section>
+  </div>
 
   <footer>
     <p>&copy; 2023 Tech Blog</p>
   </footer>
-

@@ -7,14 +7,12 @@ router.get('/dash', async (req, res) => {
     const userId = req.session.userId;
 
     if (!userId) {
-      // If the user is not logged in, you might want to redirect them to the login page
       return res.redirect('/login');
     }
 
-    // Fetch posts associated with the logged-in user's user_id
     const posts = await Post.findAll({ where: { user_id: userId } });
 
-    res.render('dash', { posts, user: req.user });
+    res.render('dash', { userPosts: posts, user: req.user });
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: 'Internal server error' });
@@ -73,6 +71,25 @@ router.get('/dash/delete/:id', async (req, res) => {
     await Post.destroy({
       where: { id: postId }
     });
+    res.redirect('/dash');
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+router.post('/add-post', async (req, res) => {
+  try {
+    const { title, content } = req.body;
+    const userId = req.session.userId;
+
+    // Create a new post
+    const newPost = await Post.create({
+      title,
+      content,
+      user_id: userId,
+    });
+
     res.redirect('/dash');
   } catch (err) {
     console.error(err);
