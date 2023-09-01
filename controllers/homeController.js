@@ -23,8 +23,17 @@ router.get('/home', async (req, res) => {
   }
 });
 
-router.get('/loghome', (req, res) => {
-  res.render('loghome');
+router.get('/loghome', async (req, res) => {
+  try {
+    const userId = req.session.userId;
+    
+    const posts = await Post.findAll();
+    
+    res.render('loghome', { posts, userId });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Internal server error' });
+  }
 });
 
 // Display a single blog post

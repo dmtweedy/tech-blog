@@ -1,31 +1,29 @@
-
-  <header>
-    <h1><a href="/home">Tech Blog</a></h1>
-    <nav>
-      <ul>
-        <li><a href="/dash">Dashboard</a></li>
-        
-        <li><a href="/login">Log In</a></li>
-        <li><a href="/signup">Sign Up</a></li>
-        
-      </ul>
-    </nav>
-  </header>
+<header>
+  <h1><a href="/home">Tech Blog</a></h1>
+  <nav>
+    <ul>
+      <li><a href="/dash">Dashboard</a></li>
+      
+      <li><a href="/login">Log In</a></li>
+      <li><a href="/signup">Sign Up</a></li>
+      
+    </ul>
+  </nav>
+</header>
   
-  <main>
-  <section class="posts">
-    <h2>Welcome to the Tech Blog</h2>
-    {{#each posts}}
-      <article class="post">
-        <h3>{{post.title}}</h3>
-        <p>{{post.content}}</p>
-        <a href="/post/{{id}}">Read more</a>
-      </article>
-    {{/each}}
-  </section>
-  </main>
+<main class="container home">
+<section class="posts">
+  <h2>Welcome to the Tech Blog Homepage</h2>
+  {{#each posts}}
+    <article class="home-post">
+      <h3>{{post.title}}</h3>
+      <p>{{post.content}}</p>
+      <a href="/post/{{id}}">Read more</a>
+    </article>
+  {{/each}}
+</section>
+</main>
 
-  <footer>
-    <p>&copy; 2023 Tech Blog</p>
-  </footer>
-
+<footer>
+  <p>&copy; 2023 Tech Blog</p>
+</footer>
