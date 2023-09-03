@@ -136,6 +136,7 @@ nav ul li:last-child {
 .post h3,
 .user-posts .post h3,
 .home .home-post h3 {
+  margin-top: 10px;
   margin-bottom: 40px;
   font-size: 20px;
   color: black;
