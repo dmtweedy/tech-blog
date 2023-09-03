@@ -1,5 +1,7 @@
 const express = require('express');
 const session = require('express-session');
+const SequelizeStore = require('connect-session-sequelize')(session.Store);
+const sequelize = require('./config/connections');
 const exphbs = require('express-handlebars');
 const db = require('./models');
 const path = require('path');
@@ -25,7 +27,17 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(session({ secret: process.env.SESSION_SECRET, resave: true, saveUninitialized: true }));
+const sess = {
+  secret: process.env.SESSION_SECRET,
+  cookie: {},
+  resave: false,
+  saveUninitialized: true,
+  store: new SequelizeStore({
+    db: sequelize,
+  }),
+};
+
+app.use(session(sess));
 
 // Middleware to load user information
 app.use(async (req, res, next) => {
