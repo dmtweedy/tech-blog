@@ -5,11 +5,19 @@ body, h1, h2, h3, p, ul, li {
   box-sizing: border-box;
 }
 
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
 main {
   max-width: 100%;
   margin: 0 auto;
   padding: 20px;
   box-sizing: border-box;
+  padding-top: 80px;
+  flex-grow: 1;
 }
 
 /* Header Styles */
@@ -18,26 +26,36 @@ header {
   color: #fff;
   padding: 20px 0;
   text-align: center;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1;
+  box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.2);
 }
 
-.posts h2 {
-  margin-bottom: 40px;
-}
-
-h1 a {
+header h1 {
   color: #fff;
   text-decoration: none;
+  position: fixed;
+  left: 20px;
+  top: 10px;
+}
+
+header h1 a {
+  text-decoration: none;
+  color: #fff;
 }
 
 /* Navigation Styles */
 nav ul {
   list-style: none;
-  text-align: center;
+  text-align: right;
+  margin-right: 30px;
 }
 
 nav ul li {
   display: inline-block;
-  margin-right: 20px;
+  margin-right: 30px;
 }
 
 nav ul li:last-child {
@@ -86,18 +104,33 @@ nav ul li:last-child {
 
 .dash h2 {
   font-size: 24px;
+  margin-top: 80px;
   margin-bottom: 10px;
 }
 
 /* User post styles */
+
+.posts {
+  margin-bottom: 100px;
+}
+
+.posts h2 {
+  margin-top: 80px;
+  margin-bottom: 40px;
+}
+
+.user-posts {
+  margin-bottom: 100px;
+}
+
 .post,
 .user-posts .post,
 .home .home-post {
-  background-color: #fff;
-  border: 1px solid #ddd;
+  background-color: #ffffff;
+  border: 2px solid #e0eefa;
   padding: 20px;
   margin-bottom: 20px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 2px 6px 12px rgba(12, 0, 53, 0.2);
 }
 
 .post h3,
@@ -105,6 +138,7 @@ nav ul li:last-child {
 .home .home-post h3 {
   margin-bottom: 40px;
   font-size: 20px;
+  color: black;
 }
 
 .post p,
@@ -112,6 +146,7 @@ nav ul li:last-child {
 .home .home-post p {
   font-size: 16px;
   margin-bottom: 20px;
+  color: black;
 }
 
 .post a,
@@ -128,7 +163,8 @@ h1 a, nav ul li a {
 
 .user-posts h3 {
   margin-bottom: 30px;
-  margin-top: 50px;
+  margin-top: 80px;
+  font-size: 20px;
 }
 
 /* Comment Styles */
@@ -244,9 +280,6 @@ footer {
   color: #fff;
   padding: 20px 0;
   text-align: center;
-  position: absolute;
-  bottom: 0;
-  width: 100%;
 }
 
 /* Responsive Design */

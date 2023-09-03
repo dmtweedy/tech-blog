@@ -21,6 +21,7 @@ Post.init(
     },
     user_id: {
       type: DataTypes.INTEGER,
+      allowNull: false,
       references: {
         model: 'users',
         key: 'id'
@@ -29,7 +30,7 @@ Post.init(
   },
   {
     sequelize,
-    modelName: 'posts'
+    modelName: 'post'
   }
 );
 

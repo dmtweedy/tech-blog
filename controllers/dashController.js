@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { Post } = require('../models');
+const { Post, User } = require('../models');
 
 router.get('/dash', async (req, res) => {
   try {
@@ -10,9 +10,20 @@ router.get('/dash', async (req, res) => {
       return res.redirect('/login');
     }
 
+    // Fetch user data based on userId
+    const user = await User.findOne({ where: { id: userId } });
+
+    if (!user) {
+      // Handle the case where the user is not found
+      return res.status(404).json({ error: 'User not found' });
+    }
+
     const userPosts = await Post.findAll({ where: { user_id: userId } });
 
-    res.render('dash', { userPosts, user: req.user });
+    console.log('User data:', user);
+    console.log('User posts:', userPosts);
+
+    res.render('dash', { username: user.username, userPosts: userPosts });
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: 'Internal server error' });

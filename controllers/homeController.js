@@ -1,22 +1,25 @@
 const express = require('express');
 const router = express.Router();
-const { Post, Comment } = require('../models');
+const { Post, Comment, User } = require('../models');
 
 // Display the homepage
 router.get('/home', async (req, res) => {
   console.log("in home route");
   try {
-    const userId = req.session.userId; // Retrieve user ID from session
-    
-    if (userId) {
-      // If the user is logged in, render the "loghome" page
-      console.log('User logged in. userId:', userId); // Log the correct user ID
-      return res.render('loghome', { userId });
-    }
-
-    // If the user is not logged in, fetch and render the "home" page
-    const posts = await Post.findAll();
-    res.render('home', { posts, userId: null }); // Pass null for userId to indicate not logged in
+    // Fetch all posts with associated user data
+    const userPosts = await Post.findAll({
+      include: [
+        {
+          model: User,
+          attributes: ['username'],
+        },
+        {
+          model: Comment,
+        },
+      ],
+    });
+    console.log(userPosts);
+    res.render('home', { posts: userPosts });
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: 'Internal server error' });
@@ -26,10 +29,32 @@ router.get('/home', async (req, res) => {
 router.get('/loghome', async (req, res) => {
   try {
     const userId = req.session.userId;
-    
-    const posts = await Post.findAll();
-    
-    res.render('loghome', { posts, userId });
+
+    if (!userId) {
+      return res.redirect('/login');
+    }
+
+    // Fetch user data based on userId
+    const user = await User.findOne({ where: { id: userId } });
+
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    // Fetch all posts (including associated user information)
+    const posts = await Post.findAll({
+      include: [
+        {
+          model: User,
+          attributes: ['username'], // Include only the username
+        },
+        {
+          model: Comment,
+        },
+      ],
+    });
+    console.log(posts);
+    res.render('loghome', { username: user.username, userPosts: posts });
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: 'Internal server error' });

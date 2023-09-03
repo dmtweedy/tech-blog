@@ -16,8 +16,9 @@
   <h2>Welcome to the Tech Blog Homepage</h2>
   {{#each posts}}
     <article class="home-post">
-      <h3>{{post.title}}</h3>
-      <p>{{post.content}}</p>
+      <p>@{{user.username}}</p>
+      <h3>{{this.dataValues.title}}</h3>
+      <p>{{this.dataValues.content}}</p>
       <a href="/post/{{id}}">Read more</a>
     </article>
   {{/each}}
