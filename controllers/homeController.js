@@ -68,28 +68,22 @@ router.get('/post/:id', async (req, res) => {
     const postId = req.params.id;
     // Fetch the specific post
     const post = await Post.findOne({
-      where: { id: postId },
+      where: { id: postId }});
+    if (!postId) {
+      return res.status(404).json({ error: 'Post not found' });
+    }
+    const comments = await Comment.findAll({
+      where: { post_id: postId },
       include: [
-        {
-          model: Comment,
-          include: [
-            {
-              model: User,
-              attributes: ['username'],
-            },
-          ],
-        },
         {
           model: User,
           attributes: ['username'],
         },
       ],
     });
-    if (!postId) {
-      return res.status(404).json({ error: 'Post not found' });
-    }
     console.log('Post:', post);
-    res.render('post', { post, userId });
+    console.log('Comments:', comments);
+    res.render('post', { post, comments, userId });
     console.log(postId, " rendered successfully")
   } catch (err) {
     console.error(err);

@@ -17,7 +17,7 @@
       <h3>Add a New Post</h3>
       <form action="/add-post" method="POST">
         <input type="text" name="title" placeholder="Title" required>
-        <textarea name="content" placeholder="Content" required></textarea>
+        <textarea name="content" class="textarea" placeholder="Content" required></textarea>
         <button type="submit">Post</button>
       </form>
     </section>
@@ -28,6 +28,10 @@
         {{#each userPosts}}
           <article class="post">
             <p>@{{this.dataValues.user_id}}</p>
+            <div class="post-actions">
+              <a href="/edit/{{id}}" class="edit-button">Edit</a>
+              <a href="/delete/{{id}}" class="delete-button">Delete</a>
+            </div>
             <h3>{{this.dataValues.title}}</h3>
             <p>{{this.dataValues.content}}</p>
             <a href="/post/{{this.dataValues.id}}">Read more</a>

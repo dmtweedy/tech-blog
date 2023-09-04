@@ -19,7 +19,7 @@ const { sequelize, Post, User, Comment } = require('../models');
     const post2 = await Post.create({
       title: 'What is MVC?',
       content: 'MVC is an architectural pattern that separates an application into three main components: the model, the view, and the controller.',
-      user_id: user1.username
+      user_id: user2.username
     });
 
     // Create comments
@@ -31,7 +31,7 @@ const { sequelize, Post, User, Comment } = require('../models');
 
     await Comment.create({
       text: "That's the structure I'm using to build the Tech Blog!",
-      post_id: post2.id,
+      post_id: post1.id,
       user_id: user1.username
     });
 

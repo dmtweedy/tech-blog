@@ -43,11 +43,11 @@
     {{/if}}
 
     <section class="comments">
-      {{#if post.comments.length}}
-        {{#each post.comments}}
+      {{#if comments.length}}
+        {{#each comments}}
           <div class="comment">
-            <p class="comment-user">@{{this.user.username}}</p>
-            <p class="comment-text">{{this.text}}</p>
+            <p class="comment-user">@{{this.dataValues.user_id}}</p>
+            <p class="comment-text"><strong>"</strong>{{this.dataValues.text}}<strong>"</strong></p>
           </div>
         {{/each}}
       {{else}}

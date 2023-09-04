@@ -135,6 +135,35 @@ nav ul li:last-child {
   margin-top: 10px;
 }
 
+.post {
+  position: relative;
+  border: 2px solid #e0eefa;
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: 2px 6px 12px rgba(12, 0, 53, 0.2);
+}
+
+/* Position the post actions (edit and delete buttons) */
+.post-actions {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+/* Style the edit button */
+.edit-button {
+  color: #007bff;
+  text-decoration: none;
+  margin-right: 10px;
+}
+
+/* Style the delete button */
+.delete-button {
+  color: #007bff;
+  text-decoration: none;
+  margin-right: 10px;
+}
+
 .posts {
   margin-bottom: 100px;
 }
@@ -193,6 +222,15 @@ h1 a, nav ul li a {
   font-size: 20px;
 }
 
+.new-post textarea {
+  width: 98%; /* Adjust the width as needed */
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  resize: none; /* Prevents resizing */
+}
+
 /* Comment Styles */
 .comments {
   margin-top: 20px;
@@ -202,8 +240,21 @@ h1 a, nav ul li a {
 
 .comment {
   margin-bottom: 10px;
-  padding: 10px;
-  border: 1px solid #ddd;
+  background-color: #ffffff;
+  border: 2px solid #e0eefa;
+  padding: 20px;
+  box-shadow: 2px 6px 12px rgba(12, 0, 53, 0.2);
+}
+
+.comment-user {
+  margin-top: 5px;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+.comment-text {
+  margin-top: 20px;
+  margin-bottom: 5px;
 }
 
 .new-comment {
@@ -224,11 +275,12 @@ h1 a, nav ul li a {
 }
 
 .new-comment textarea {
-  width: 100%;
+  width: 97.5%;
   padding: 10px;
   margin-bottom: 20px;
   border: 1px solid #ccc;
   border-radius: 5px;
+  resize: none;
 }
 
 .new-comment button[type="submit"] {
