@@ -109,7 +109,22 @@ nav ul li:last-child {
   margin-bottom: 10px;
 }
 
+.post-edit h3 {
+  font-size: 24px;
+  margin-top: 100px;
+  margin-left: 6%;
+}
+
 /* User post styles */
+.edit-post {
+  background-color: #ffffff;
+  border: 2px solid #e0eefa;
+  padding: 20px;
+  margin-bottom: 40px;
+  margin-top: -20px;
+  box-shadow: 2px 6px 12px rgba(12, 0, 53, 0.2);
+}
+
 .single-post {
   background-color: #ffffff;
   border: 2px solid #e0eefa;

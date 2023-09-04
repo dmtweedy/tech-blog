@@ -41,18 +41,26 @@ router.post('/dash/create', async (req, res) => {
   }
 });
 
-router.get('/dash/edit/:id', async (req, res) => {
+router.get('/edit/:id', async (req, res) => {
   try {
     const postId = req.params.id;
     const post = await Post.findByPk(postId);
-    res.render('edit-post', { post });
+    res.render('edit', {
+      post: {
+        dataValues: {
+          user_id: post.user_id, // You might want to check the correct field name here
+          title: post.title,
+          content: post.content,
+        },
+      },
+    });
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: 'Internal server error' });
   }
 });
 
-router.post('/dash/edit/:id', async (req, res) => {
+router.post('/edit/:id', async (req, res) => {
   try {
     const postId = req.params.id;
     await Post.update(
@@ -71,7 +79,7 @@ router.post('/dash/edit/:id', async (req, res) => {
   }
 });
 
-router.get('/dash/delete/:id', async (req, res) => {
+router.get('/delete/:id', async (req, res) => {
   try {
     const postId = req.params.id;
     await Post.destroy({

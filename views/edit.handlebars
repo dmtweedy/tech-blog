@@ -1,0 +1,35 @@
+<header>
+    <h1><a href="/loghome">Tech Blog</a></h1>
+  <nav>
+    <ul>
+        <li><a href="/loghome">Home</a></li>
+        <li><a href="/dash">Dashboard</a></li>
+        <li><a href="/logout">Log Out</a></li>
+    </ul>
+  </nav>
+</header>
+
+<section class="post-edit">
+  <h3>Edit your post</h3>
+</section>
+
+<main>
+  <article class="edit-post">
+      {{#if post}}
+        <div class="post-header"></div>
+          <p class="post-user">@{{post.dataValues.user_id}}</p>
+          <div class="post-actions">
+            <a href="/edit/{{this.dataValues.id}}" class="save-button">Save</a>
+          </div>
+          <input type="text" name="title" class="post-title" value="{{post.dataValues.title}}">
+        </div>
+        <textarea name="content" class="post-content">{{post.dataValues.content}}</textarea>
+      {{else}}
+        <p class="post-not-found">2 Post not found 2</p>
+      {{/if}}
+    </article>
+</main>
+
+<footer>
+  <p>&copy; 2023 Tech Blog</p>
+</footer>

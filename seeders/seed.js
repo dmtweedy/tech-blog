@@ -13,7 +13,7 @@ const { sequelize, Post, User, Comment } = require('../models');
     const post1 = await Post.create({
       title: 'What is a CMS-Style Tech Blog?',
       content: 'A CMS-style blog site similar to a WordPress site, where developers can publish their blog posts and comment on other posts as well.',
-      user_id: user2.username 
+      user_id: user1.username 
     });
 
     const post2 = await Post.create({
@@ -31,7 +31,7 @@ const { sequelize, Post, User, Comment } = require('../models');
 
     await Comment.create({
       text: "That's the structure I'm using to build the Tech Blog!",
-      post_id: post1.id,
+      post_id: post2.id,
       user_id: user1.username
     });
 
