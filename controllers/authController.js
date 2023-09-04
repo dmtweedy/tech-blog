@@ -13,16 +13,22 @@ router.get('/login', (req, res) => {
 router.post('/login', async (req, res) => {
   try {
     const { username, password } = req.body;
-
-    // Find the user by username
+    await new Promise((resolve, reject) => {
+      req.session.reload((err) => {
+        if (err) {
+          return reject(err);
+        }
+        resolve();
+      });
+    });
     const user = await User.findOne({ where: { username } });
-
-    // Check if user exists and compare passwords using bcrypt
     if (user && bcrypt.compareSync(password, user.password)) {
       req.session.userId = user.id; // Store user's ID in session
       req.session.username = user.username;
-      console.log('User logged in. userId:', user.id);
-      res.redirect('/dash');
+      req.session.save(() => {
+        console.log('User logged in. userId:', user.id);
+        res.redirect('/dash');
+      });
     } else {
       res.render('login', { errorMessage: 'Incorrect username or password' });
     }
@@ -91,16 +97,30 @@ router.get('/logout', (req, res) => {
 });
 
 // Handle logout form
-router.post('/logout', (req, res) => {
-  // Clear user's session
-  req.session.destroy((err) => {
-    if (err) {
-      console.error(err);
-    }
-    // Redirect user to home page
-    res.redirect('/home');
-  });
-});
+router.post('/logout', async (req, res) => {
+  try {
+    // Ensure that session data is fully loaded
+    await new Promise((resolve, reject) => {
+      req.session.reload((err) => {
+        if (err) {
+          return reject(err);
+        }
+        resolve();
+      });
+    });
 
+    // Clear user's session
+    req.session.destroy((err) => {
+      if (err) {
+        console.error(err);
+      }
+      // Redirect user to home page
+      res.redirect('/home');
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
 
 module.exports = router;

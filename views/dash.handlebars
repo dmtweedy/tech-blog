@@ -27,10 +27,10 @@
       <ul>
         {{#each userPosts}}
           <article class="post">
-            <p>@{{user.username}}</p>
+            <p>@{{this.dataValues.user_id}}</p>
             <h3>{{this.dataValues.title}}</h3>
             <p>{{this.dataValues.content}}</p>
-            <a href="/post/{{id}}">Read more</a>
+            <a href="/post/{{this.dataValues.id}}">Read more</a>
           </article>
         {{/each}}
       </ul>

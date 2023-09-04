@@ -27,9 +27,10 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use(express.static(path.join(__dirname, 'public')));
+
 const sess = {
   secret: process.env.SESSION_SECRET,
-  cookie: {},
+  cookie: { secure:false },
   resave: false,
   saveUninitialized: true,
   store: new SequelizeStore({

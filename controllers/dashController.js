@@ -6,10 +6,6 @@ router.get('/dash', async (req, res) => {
   try {
     const userId = req.session.userId;
 
-    if (!userId) {
-      return res.redirect('/login');
-    }
-
     // Fetch user data based on userId
     const user = await User.findOne({ where: { id: userId } });
 
@@ -18,7 +14,7 @@ router.get('/dash', async (req, res) => {
       return res.status(404).json({ error: 'User not found' });
     }
 
-    const userPosts = await Post.findAll({ where: { user_id: userId } });
+    const userPosts = await Post.findAll({ where: { user_id: user.username } });
 
     console.log('User data:', user);
     console.log('User posts:', userPosts);
