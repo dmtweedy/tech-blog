@@ -93,7 +93,8 @@ nav ul li:last-child {
 /* container styles */
 .container {
   max-width: 1200px;
-  margin: 0 auto;
+  margin-left: 40px;
+  margin-right: 40px;
   padding: 20px;
 }
 
