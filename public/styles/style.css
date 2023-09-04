@@ -93,8 +93,8 @@ nav ul li:last-child {
 /* container styles */
 .container {
   max-width: 1200px;
-  margin-left: 40px;
-  margin-right: 40px;
+  margin-left: 60px;
+  margin-right: 60px;
   padding: 20px;
 }
 
@@ -110,6 +110,30 @@ nav ul li:last-child {
 }
 
 /* User post styles */
+.single-post {
+  background-color: #ffffff;
+  border: 2px solid #e0eefa;
+  padding: 20px;
+  margin-bottom: 40px;
+  box-shadow: 2px 6px 12px rgba(12, 0, 53, 0.2);
+}
+
+.post-header {
+  font-size: 20px;
+  color: black;
+}
+
+.post-user {
+  margin-bottom: 20px;
+}
+
+.post-title {
+  margin-bottom: 40px;
+}
+
+.post-content {
+  margin-top: 10px;
+}
 
 .posts {
   margin-bottom: 100px;
@@ -180,6 +204,43 @@ h1 a, nav ul li a {
   margin-bottom: 10px;
   padding: 10px;
   border: 1px solid #ddd;
+}
+
+.new-comment {
+  margin-top: 20px;
+  margin-bottom: 30px;
+}
+
+.new-comment h3 {
+  font-size: 20px;
+  margin-bottom: 30px;
+}
+
+.new-comment form {
+  background-color: #ffffff;
+  border: 2px solid #e0eefa;
+  padding: 20px;
+  box-shadow: 2px 6px 12px rgba(12, 0, 53, 0.2);
+}
+
+.new-comment textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.new-comment button[type="submit"] {
+  background-color: #333;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+.new-comment button[type="submit"]:hover {
+  background-color: #555;
 }
 
 /* Form styling */
