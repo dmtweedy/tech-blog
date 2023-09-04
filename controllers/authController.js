@@ -13,6 +13,17 @@ router.get('/login', (req, res) => {
 router.post('/login', async (req, res) => {
   try {
     const { username, password } = req.body;
+    console.log('Received username:', username);
+    console.log('Received password:', password);
+    const user = await User.findOne({ where: { username } });
+    console.log('User found:', user);
+
+    const storedPassword = user.password.trim();
+    const inputPassword = password.trim();
+
+    console.log('Stored Password Hash:', storedPassword);
+    console.log('Password Comparison Result:', bcrypt.compareSync(inputPassword, storedPassword));
+
     await new Promise((resolve, reject) => {
       req.session.reload((err) => {
         if (err) {
@@ -21,16 +32,16 @@ router.post('/login', async (req, res) => {
         resolve();
       });
     });
-    const user = await User.findOne({ where: { username } });
-    if (user && bcrypt.compareSync(password, user.password)) {
-      req.session.userId = user.id; // Store user's ID in session
+    if (user && bcrypt.compareSync(inputPassword, storedPassword)) {
+      req.session.userId = user.id;
       req.session.username = user.username;
       req.session.save(() => {
         console.log('User logged in. userId:', user.id);
         res.redirect('/dash');
       });
     } else {
-      res.render('login', { errorMessage: 'Incorrect username or password' });
+      console.log("Error logging in. User not found or incorrect password.");
+      res.render('login');
     }
   } catch (err) {
     console.error(err);
@@ -48,13 +59,10 @@ router.post('/signup', async (req, res) => {
   try {
     const { username, password } = req.body;
 
-    // Hash the password before storing it in the database
-    const hashedPassword = await bcrypt.hash(password, 10);
-
     // Create a new user in the database
     const newUser = await User.create({
       username,
-      password: hashedPassword,
+      password,
     });
     req.session.userId = newUser.id;
     req.session.username = newUser.username;
