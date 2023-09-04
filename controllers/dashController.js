@@ -5,15 +5,14 @@ const { Post, User } = require('../models');
 router.get('/dash', async (req, res) => {
   try {
     const userId = req.session.userId;
-
-    // Fetch user data based on userId
-    const user = await User.findOne({ where: { id: userId } });
+    const user = await User.findByPk(userId);
 
     if (!user) {
       // Handle the case where the user is not found
       return res.status(404).json({ error: 'User not found' });
     }
-
+    req.session.userId = user.id;
+    req.session.username = user.username;
     const userPosts = await Post.findAll({ where: { user_id: user.username } });
 
     console.log('User data:', user);
@@ -89,14 +88,23 @@ router.post('/add-post', async (req, res) => {
   try {
     const { title, content } = req.body;
     const userId = req.session.userId;
+    console.log('User ID from session:', userId);
+    
+    // Fetch the user from the database using userId
+    const user = await User.findByPk(userId);
+
+    if (!user) {
+      console.error('User does not exist');
+      return res.status(404).json({ error: 'User not found' });
+    }
 
     // Create a new post
     const newPost = await Post.create({
       title,
       content,
-      user_id: userId,
+      user_id: user.username,
     });
-
+    console.log('User created a new post:', newPost);
     res.redirect('/dash');
   } catch (err) {
     console.error(err);

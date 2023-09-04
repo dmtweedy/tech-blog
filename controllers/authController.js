@@ -56,9 +56,14 @@ router.post('/signup', async (req, res) => {
       username,
       password: hashedPassword,
     });
-
+    req.session.userId = newUser.id;
+    req.session.username = newUser.username;
+    console.log('New user created:', newUser);
     // Redirect or send a success response
-    res.redirect('/login');
+    req.session.save(() => {
+      console.log('User logged in. userId:', newUser.id);
+      res.redirect('/dash');
+    });
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: 'Internal server error' });
