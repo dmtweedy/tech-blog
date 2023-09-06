@@ -128,7 +128,7 @@ router.post('/logout', async (req, res) => {
         console.error(err);
       }
       // Redirect user to home page
-      res.redirect('/home');
+      res.redirect('/');
     });
   } catch (err) {
     console.error(err);
