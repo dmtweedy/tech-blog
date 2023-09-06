@@ -3,7 +3,11 @@ const router = express.Router();
 const { Post, Comment, User } = require('../models');
 
 // Display the homepage
-router.get('/', async (req, res) => {
+app.get('/', (req, res) => {
+  res.redirect('/home');
+});
+
+router.get('/home', async (req, res) => {
   console.log("in home route");
   try {
     // Fetch all posts with associated user data
