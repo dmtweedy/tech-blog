@@ -3,7 +3,7 @@ const router = express.Router();
 const { Post, Comment, User } = require('../models');
 
 // Display the homepage
-app.get('/', (req, res) => {
+router.get('/', (req, res) => {
   res.redirect('/home');
 });
 
