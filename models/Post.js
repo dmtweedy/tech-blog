@@ -20,7 +20,7 @@ Post.init(
       type: DataTypes.TEXT,
       allowNull: false
     },
-    user_id: {
+    username: {
       type: DataTypes.STRING,
       allowNull: false,
       references: {
@@ -31,7 +31,7 @@ Post.init(
   },
   {
     sequelize,
-    modelName: 'post'
+    modelName: 'posts'
   }
 );
 

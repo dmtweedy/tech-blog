@@ -112,17 +112,19 @@ nav ul li:last-child {
 .post-edit h3 {
   font-size: 24px;
   margin-top: 100px;
-  margin-left: 6%;
+  text-align: center;
 }
 
 /* User post styles */
 .edit-post {
-  background-color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  position: relative;
   border: 2px solid #e0eefa;
   padding: 20px;
-  margin-bottom: 40px;
   margin-top: -20px;
-  box-shadow: 2px 6px 12px rgba(12, 0, 53, 0.2);
+  margin-bottom: 100px;
+  box-shadow: 2px 6px 12px rgba(12, 0, 53, 0.2);;
 }
 
 .single-post {
@@ -134,20 +136,32 @@ nav ul li:last-child {
 }
 
 .post-header {
+  display: flex;
+  flex-direction: column;
   font-size: 20px;
   color: black;
 }
 
 .post-user {
+  font-size: 16px;
   margin-bottom: 20px;
+  color: black;
 }
 
 .post-title {
+  margin-top: 10px;
   margin-bottom: 40px;
+  font-size: 20px;
+  color: black;
+  width: 98.5%;
+  font-weight: bold;
 }
 
 .post-content {
-  margin-top: 10px;
+  font-size: 16px;
+  margin-bottom: 20px;
+  color: black;
+  width: 100%;
 }
 
 .post {
@@ -158,7 +172,7 @@ nav ul li:last-child {
   box-shadow: 2px 6px 12px rgba(12, 0, 53, 0.2);
 }
 
-/* Position the post actions (edit and delete buttons) */
+/* Position edit and delete buttons */
 .post-actions {
   position: absolute;
   top: 10px;
@@ -174,6 +188,12 @@ nav ul li:last-child {
 
 /* Style the delete button */
 .delete-button {
+  color: #007bff;
+  text-decoration: none;
+  margin-right: 10px;
+}
+
+.save-button {
   color: #007bff;
   text-decoration: none;
   margin-right: 10px;
@@ -238,12 +258,21 @@ h1 a, nav ul li a {
 }
 
 .new-post textarea {
-  width: 98%; /* Adjust the width as needed */
+  width: 98%;
   padding: 10px;
   margin-bottom: 20px;
   border: 1px solid #ccc;
   border-radius: 5px;
-  resize: none; /* Prevents resizing */
+  resize: vertical;
+}
+
+.edit-post textarea {
+  width: 96%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  resize: vertical;
 }
 
 /* Comment Styles */

@@ -13,7 +13,7 @@ router.get('/dash', async (req, res) => {
     }
     req.session.userId = user.id;
     req.session.username = user.username;
-    const userPosts = await Post.findAll({ where: { user_id: user.username } });
+    const userPosts = await Post.findAll({ where: { user_id: user.id } });
 
     console.log('User data:', user);
     console.log('User posts:', userPosts);
@@ -48,31 +48,13 @@ router.get('/edit/:id', async (req, res) => {
     res.render('edit', {
       post: {
         dataValues: {
-          user_id: post.user_id, // You might want to check the correct field name here
+          username: post.username,
           title: post.title,
           content: post.content,
+          id: post.id
         },
       },
     });
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: 'Internal server error' });
-  }
-});
-
-router.post('/edit/:id', async (req, res) => {
-  try {
-    const postId = req.params.id;
-    await Post.update(
-      {
-        title: req.body.title,
-        content: req.body.content
-      },
-      {
-        where: { id: postId }
-      }
-    );
-    res.redirect('/dash');
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: 'Internal server error' });
@@ -110,7 +92,8 @@ router.post('/add-post', async (req, res) => {
     const newPost = await Post.create({
       title,
       content,
-      user_id: user.username,
+      user_id: user.id,
+      username: user.username
     });
     console.log('User created a new post:', newPost);
     res.redirect('/dash');

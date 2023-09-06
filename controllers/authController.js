@@ -82,9 +82,9 @@ router.post('/comment/:postId', async (req, res) => {
   try {
     const { commentText } = req.body;
     const postId = req.params.postId;
-    const userId = req.session.userId; // Assuming you're storing user ID in the session
-
-    if (!userId) {
+    const userId = req.session.userId;
+    const user = await User.findByPk(userId);
+    if (!user) {
       return res.redirect('/login'); // Redirect to login page if not logged in
     }
 
@@ -92,9 +92,9 @@ router.post('/comment/:postId', async (req, res) => {
     await Comment.create({
       text: commentText,
       post_id: postId,
-      user_id: userId,
+      user_id: user.id,
+      username: user.username
     });
-
     // Redirect back to the single post page
     res.redirect(`/post/${postId}`);
   } catch (err) {

@@ -23,7 +23,7 @@
   <article class="single-post">
       {{#if post}}
         <div class="post-header"></div>
-          <p class="post-user">@{{post.dataValues.user_id}}</p>
+          <p class="post-user">@{{post.dataValues.username}}</p>
           <h3 class="post-title">{{post.dataValues.title}}</h3>
         </div>
         <p class="post-content">{{post.dataValues.content}}</p>
@@ -35,7 +35,7 @@
     {{#if userId}}
       <section class="new-comment">
         <h3>Add a Comment</h3>
-        <form action="/comment/{{post.id}}" method="POST">
+        <form action="/comment/{{post.dataValues.id}}" method="POST">
           <textarea name="commentText" class="comment-textarea" placeholder="Write your comment here" required></textarea>
           <button type="submit" class="comment-submit">Submit</button>
         </form>
@@ -46,8 +46,8 @@
       {{#if comments.length}}
         {{#each comments}}
           <div class="comment">
-            <p class="comment-user">@{{this.dataValues.user_id}}</p>
-            <p class="comment-text"><strong>"</strong>{{this.dataValues.text}}<strong>"</strong></p>
+            <p class="comment-user">@{{this.dataValues.username}}</p>
+            <p class="comment-text"><strong>"{{this.dataValues.text}}"</strong></p>
           </div>
         {{/each}}
       {{else}}

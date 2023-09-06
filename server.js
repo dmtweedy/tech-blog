@@ -6,6 +6,7 @@ const exphbs = require('express-handlebars');
 const db = require('./models');
 const path = require('path');
 const helpers = require('./utils/helpers');
+const methodOverride = require('method-override');
 const app = express();
 const PORT = process.env.PORT || 3002;
 const hbs = exphbs.create({
@@ -15,19 +16,6 @@ const hbs = exphbs.create({
     helpers
   },
 });
-
-app.set('views', path.join(__dirname, 'views'));
-app.engine(
-  'handlebars', hbs.engine
-);
-app.set('view engine', 'handlebars');
-
-// Middleware
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-
-app.use(express.static(path.join(__dirname, 'public')));
-
 const sess = {
   secret: process.env.SESSION_SECRET,
   cookie: { secure:false },
@@ -38,9 +26,18 @@ const sess = {
   }),
 };
 
-app.use(session(sess));
+app.set('views', path.join(__dirname, 'views'));
+app.engine(
+  'handlebars', hbs.engine
+);
+app.set('view engine', 'handlebars');
 
-// Middleware to load user information
+// Middleware
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(methodOverride('_method'));
+app.use(express.static(path.join(__dirname, 'public')));
+app.use(session(sess));
 app.use(async (req, res, next) => {
   if (req.session.userId) {
     const user = await db.User.findByPk(req.session.userId);

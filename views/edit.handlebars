@@ -10,26 +10,66 @@
 </header>
 
 <section class="post-edit">
-  <h3>Edit your post</h3>
+  <h3>Edit Your Post</h3>
 </section>
 
 <main>
   <article class="edit-post">
+    <ul>
       {{#if post}}
         <div class="post-header"></div>
-          <p class="post-user">@{{post.dataValues.user_id}}</p>
-          <div class="post-actions">
-            <a href="/edit/{{this.dataValues.id}}" class="save-button">Save</a>
+          <p class="post-user">@{{post.dataValues.username}}</p>
+          <div class="post-actions"></div>
+            <form method="POST" action="/edit/{{post.dataValues.id}}" id="edit-post-form"></form>
+              <input type="hidden" id="post-id" value="{{post.dataValues.id}}">
+              <button type="submit" id="save-button" class="save-button">Save</button>
+              <input type="hidden" name="_method" value="PUT">
+              <input type="text" id="title-input" name="title" class="post-title" placeholder="{{post.dataValues.title}}" required>
+              <textarea id="content-input" name="content" class="post-content" placeholder="{{post.dataValues.content}}" required></textarea>
+            </form>
           </div>
-          <input type="text" name="title" class="post-title" value="{{post.dataValues.title}}">
         </div>
-        <textarea name="content" class="post-content">{{post.dataValues.content}}</textarea>
       {{else}}
-        <p class="post-not-found">2 Post not found 2</p>
+        <p class="post-not-found">Post not found</p>
       {{/if}}
-    </article>
+    </ul>
+  </article>
 </main>
 
 <footer>
   <p>&copy; 2023 Tech Blog</p>
 </footer>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const form = document.getElementById("edit-post-form");
+    console.log("JavaScript file loaded");
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      const postId = document.getElementById("post-id").textContent;
+      const updatedTitle = document.getElementById("title-input").value;
+      const updatedContent = document.getElementById("content-input").value;
+
+      console.log("Post ID:", postId);
+      console.log("Updated Title:", updatedTitle);
+      console.log("Updated Content:", updatedContent);
+
+      fetch(`/edit/${postId}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ title: updatedTitle, content: updatedContent }),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          console.log("Response from server:", data);
+          window.location.href = '/dash';
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+        });
+    });
+  });
+</script>
